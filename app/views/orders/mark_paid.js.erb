@@ -1,0 +1,5 @@
+// app/views/completion/mark_paid.js.erb
+<% if @order.paid %>
+  // Update the view to remove the order from the completion screen
+  $('#order_<%= @order.id %>').fadeOut();
+<% end %>

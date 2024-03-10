@@ -1,0 +1,18 @@
+%h1 Kitchen Display
+
+- if @pending_orders.present?
+  %ul
+    - @pending_orders.group_by(&:order).each do |order, order_items|
+      %li
+        %h2= "Order: #{order.car_registration}"
+        %ul
+          - order_items.each do |order_item|
+            %li
+              = "#{order_item.menu_item.name}"
+              = form_tag mark_prepared_path(order_item), method: :post do
+                = hidden_field_tag :order_item_id, order_item.id
+                = submit_tag 'Mark Prepared', class: 'btn btn-primary'
+- else
+  %p No pending orders.
+
+=link_to "Back to Dashboard", dashboard_path

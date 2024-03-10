@@ -1,0 +1,20 @@
+.container.mt-5
+  .row.justify-content-center
+    .col-md-6
+      %h1.text-center.mb-4 Place Order
+      
+      = form_for @order, html: { id: 'new_order' } do |form|
+        .mb-3
+          = form.label :car_registration, 'Car Registration', class: "form-label"
+          = form.text_field :car_registration, class: 'form-control', placeholder: 'Enter Car Registration', required: true
+
+        .mb-3
+          = form.label :menu_item_ids, 'Menu Items', class: "form-label"
+          - @menu_items.each do |item|
+            .form-check
+              = form.check_box :menu_item_ids, { multiple: true, checked: @order.menu_item_ids.include?(item.id) }, item.id, nil
+              = form.label "order_menu_item_ids_#{item.id}", item.name, class: 'form-check-label'
+
+        .text-center.mt-4
+          = form.submit 'Place Order', class: 'btn btn-primary btn-lg'
+=link_to "Back to Dashboard", dashboard_path
